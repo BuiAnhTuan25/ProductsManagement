@@ -17,6 +17,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 //    Page<ProductEntity> findByNameAndOrderByPriceDesc(Pageable pageable,@Param("price") int price, @Param("name") String name);
 
 /*
+ Covert save() -> native query
  REPLACE INTO product (id, description, name, price, sku, status, category_id)
  VALUES (1001,'Ownsworth','Beer - Camerons Cream Ale',50001,'Haleigh',0,5);
 
