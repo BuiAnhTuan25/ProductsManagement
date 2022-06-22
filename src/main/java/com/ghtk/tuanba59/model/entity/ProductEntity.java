@@ -18,7 +18,5 @@ public class ProductEntity {
     private String sku;
     private Integer status;
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
+    private Long categoryId;
 }
