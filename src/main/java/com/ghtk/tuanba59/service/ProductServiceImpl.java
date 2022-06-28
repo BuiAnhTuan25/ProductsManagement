@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ListData getAll(int page, int pageSize) {
-        Page<ProductEntity> pageProduct = productRepository.findAll(PageRequest.of(page, pageSize));
+        Page<ProductEntity> pageProduct = productRepository.findAllByStatus(PageRequest.of(page, pageSize), StatusEnum.ACTIVE);
         Pagination pagination = new Pagination(pageProduct.getNumber(), pageProduct.getSize(), pageProduct.getTotalPages(), (int) pageProduct.getTotalElements());
         List<ProductDto> productDtoList = pageProduct.getContent().stream().map(p -> modelMapper.map(p, ProductDto.class)).collect(Collectors.toList());
         return new ListData(true, "success", productDtoList, pagination);
@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
             product.setCode(product.getCategoryId() + "." + product.getSku() + "." + dateFor.format(Date.valueOf(product.getCreatedAt().toLocalDate())));
             return new Data(true, "success", modelMapper.map(productRepository.save(product), ProductDto.class));
         }
-        return new Data(false,"add false",null);
+        return new Data(false, "add false", null);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
             product.setModifiedAt(LocalDateTime.now());
             return new Data(true, "success", modelMapper.map(productRepository.save(product), ProductDto.class));
         }
-        return new Data(false,"update false",null);
+        return new Data(false, "update false", null);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.ghtk.tuanba59.repository;
 
+import com.ghtk.tuanba59.constants.StatusEnum;
 import com.ghtk.tuanba59.model.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,4 +28,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     Page<ProductEntity> findByNameContainingAndPriceGreaterThanOrderByPriceDesc(Pageable pageable, String name, int price);
 
+    Page<ProductEntity> findAllByStatus(Pageable pageable, StatusEnum status);
 }

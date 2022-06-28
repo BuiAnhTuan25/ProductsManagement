@@ -27,7 +27,7 @@ public class WareHouseServiceImpl implements WareHouseService {
 
     @Override
     public ListData getAll(int page, int pageSize) {
-        Page<WareHouseEntity> wareHousePage = wareHouseRepository.findAll(PageRequest.of(page, pageSize));
+        Page<WareHouseEntity> wareHousePage = wareHouseRepository.findAllByStatus(PageRequest.of(page, pageSize),StatusEnum.ACTIVE);
         Pagination pagination = new Pagination(wareHousePage.getNumber(), wareHousePage.getSize(), wareHousePage.getTotalPages(), (int) wareHousePage.getTotalElements());
         List<WareHouseDto> wareHouseDtoList = wareHousePage.stream().map(w -> modelMapper.map(w, WareHouseDto.class)).collect(Collectors.toList());
         return new ListData(true, "success", wareHouseDtoList, pagination);
