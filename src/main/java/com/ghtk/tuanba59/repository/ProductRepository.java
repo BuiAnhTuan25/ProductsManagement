@@ -16,12 +16,14 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 //    @Query("select p from ProductEntity p where p.price>:price and p.name like %:name% order by p.price desc ")
 //    Page<ProductEntity> findByNameAndOrderByPriceDesc(Pageable pageable,@Param("price") int price, @Param("name") String name);
 
-/*
- Covert save() -> native query
- REPLACE INTO product (id, description, name, price, sku, status, category_id)
- VALUES (1001,'Ownsworth','Beer - Camerons Cream Ale',50001,'Haleigh',0,5);
+    /*
+     Covert save() -> native query
+     REPLACE INTO product (id, description, name, price, sku, status, category_id)
+     VALUES (1001,'Ownsworth','Beer - Camerons Cream Ale',50001,'Haleigh',0,5);
 
- */
+     */
+    @Query(value = "SELECT p FROM ProductEntity p WHERE p.name like %:name% AND p.price >= :price")
+    Page<ProductEntity> findByNameAndPrice(Pageable pageable, @Param("name") String name, @Param("price") int price);
 
     Page<ProductEntity> findByNameContainingAndPriceGreaterThanOrderByPriceDesc(Pageable pageable, String name, int price);
 
