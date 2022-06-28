@@ -50,7 +50,6 @@ public class WareHouseServiceImpl implements WareHouseService {
     @Override
     public Data delete(Long id) {
         WareHouseEntity wareHouse = wareHouseRepository.findById(id).orElseThrow(()->new EntityNotFoundException());
-        wareHouse.setId(id);
         wareHouse.setStatus(StatusEnum.INACTIVE);
         wareHouseRepository.save(wareHouse);
         return new Data(true, "success", modelMapper.map(wareHouse, WareHouseDto.class));
